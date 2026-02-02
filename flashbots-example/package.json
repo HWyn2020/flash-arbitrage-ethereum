@@ -1,0 +1,14 @@
+{
+  "name": "flashbots-example",
+  "version": "0.1.0",
+  "description": "Standalone example using ethers v5 and @flashbots/ethers-provider-bundle",
+  "private": true,
+  "scripts": {
+    "send": "node sendBundle.js",
+    "simulate": "node simulateBundle.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "ethers": "^5.7.0"
+  }
+}

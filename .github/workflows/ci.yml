@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:	
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Check Node version
+        run: |
+          echo "Node version: $(node -v)"
+          NODE_MAJOR=$(node -v | sed 's/v\([0-9]*\).*/\1/')
+          if [ "$NODE_MAJOR" -lt 18 ]; then
+            echo "Node version must be >= 18 (found $(node -v))" >&2
+            exit 1
+          fi
+
+      - name: Check local Hardhat
+        run: |
+          echo "Installed Hardhat:"
+          npm list hardhat --depth=0 || (echo "Hardhat not installed locally" && exit 1)
+          npx hardhat --version
+
+      - name: Compile contracts
+        run: npx hardhat compile

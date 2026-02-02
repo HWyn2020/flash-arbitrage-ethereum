@@ -1,0 +1,33 @@
+{
+  "name": "flash-arbitrage-working",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "compile": "hardhat compile",
+    "check-env": "node scripts/check-env.js",
+    "prepublishOnly": "npm run check-env",
+    "node": "hardhat node",
+    "deploy-local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy-sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "interact-sepolia": "hardhat run scripts/interact.js --network sepolia",
+    "bot": "node bot/arbitrage-bot.js",
+    "start": "npm run node",
+    "test": "npx hardhat test"
+  },
+  "dependencies": {
+    "@flashbots/ethers-provider-bundle": "^1.0.0",
+    "@openzeppelin/contracts": "^4.9.6",
+    "ethers": "^6.16.0",
+    "ioredis": "^5.9.2"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.1.2",
+    "@nomicfoundation/hardhat-ethers": "^3.1.3",
+    "@nomicfoundation/hardhat-toolbox": "^6.1.2",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "chai": "^4.5.0",
+    "dotenv": "^17.2.4",
+    "ethereum-waffle": "^4.0.10",
+    "hardhat": "^2.28.4"
+  }
+}
